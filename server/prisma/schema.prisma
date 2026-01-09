@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model College {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  city      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  users     User[]
+  
+  @@index([name])
+}
+
+model User {
+  id                String   @id @default(cuid())
+  name              String
+  email             String   @unique
+  password          String?
+  username          String   @unique
+  collegeId         String
+
+  // OAuth fields
+  provider          String?  // 'local', 'github', 'google'
+  providerId        String?  // OAuth provider's user ID
+  avatar            String?  // Profile picture URL
+  
+  // Platform usernames
+  githubUsername    String?
+  leetcodeUsername  String?
+  hackerrankUsername String?
+  linkedinUrl       String?
+  
+  // Ranking
+  totalScore        Float    @default(0)
+  rank              Int?
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  lastSyncedAt      DateTime?
+  
+  college           College  @relation(fields: [collegeId], references: [id])
+  platformStats     PlatformStats?
+  scoreHistory      ScoreHistory[]
+  
+  @@index([collegeId])
+  @@index([totalScore])
+  @@index([username])
+}
+
+model PlatformStats {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  
+  // GitHub stats
+  githubRepos         Int      @default(0)
+  githubStars         Int      @default(0)
+  githubCommits       Int      @default(0)
+  githubFollowers     Int      @default(0)
+  githubScore         Float    @default(0)
+  
+  // LeetCode stats
+  leetcodeSolved      Int      @default(0)
+  leetcodeEasy        Int      @default(0)
+  leetcodeMedium      Int      @default(0)
+  leetcodeHard        Int      @default(0)
+  leetcodeRating      Int      @default(0)
+  leetcodeScore       Float    @default(0)
+  
+  // HackerRank stats
+  hackerrankStars     Int      @default(0)
+  hackerrankBadges    Int      @default(0)
+  hackerrankScore     Float    @default(0)
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ScoreHistory {
+  id                  String   @id @default(cuid())
+  userId              String
+  
+  // Score snapshot
+  totalScore          Float
+  githubScore         Float    @default(0)
+  leetcodeScore       Float    @default(0)
+  hackerrankScore     Float    @default(0)
+  
+  // Rank at this point
+  rank                Int?
+  
+  // Stats snapshot
+  githubRepos         Int      @default(0)
+  githubStars         Int      @default(0)
+  leetcodeSolved      Int      @default(0)
+  hackerrankStars     Int      @default(0)
+  
+  recordedAt          DateTime @default(now())
+  
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, recordedAt])
+  @@index([userId])
+}
+

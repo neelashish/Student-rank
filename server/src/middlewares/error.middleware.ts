@@ -1,0 +1,48 @@
+import { Request, Response, NextFunction } from 'express';
+import { ZodError } from 'zod';
+
+export const errorMiddleware = (
+    error: any,
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    console.error('Error:', error);
+
+    // Zod validation errors
+    if (error instanceof ZodError) {
+        return res.status(400).json({
+            error: 'Validation error',
+            details: error.errors.map((e) => ({
+                field: e.path.join('.'),
+                message: e.message,
+            })),
+        });
+    }
+
+    // Prisma errors
+    if (error.code === 'P2002') {
+        return res.status(409).json({
+            error: 'A record with this value already exists',
+        });
+    }
+
+    if (error.code === 'P2025') {
+        return res.status(404).json({
+            error: 'Record not found',
+        });
+    }
+
+    // Custom errors
+    if (error.statusCode) {
+        return res.status(error.statusCode).json({
+            error: error.message,
+        });
+    }
+
+    // Default error
+    return res.status(500).json({
+        error: 'Internal server error',
+        message: process.env.NODE_ENV === 'development' ? error.message : undefined,
+    });
+};

@@ -1,0 +1,33 @@
+========================================
+URGENT: CREATE THIS FILE!
+========================================
+
+FILE: client\.env.local
+LOCATION: c:\Users\HP\PRO\student-rank\client\.env.local
+
+The .env.local file is MISSING in the client directory!
+This is why Google OAuth isn't working.
+
+COPY THE FOLLOWING 3 LINES INTO A NEW FILE:
+-------------------------------------------
+
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_GITHUB_CLIENT_ID=Ov23ctV2GihzRE3YiCGB
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=98543264706-4vbtoejh399fp3skhrch1pnnkgros2k3.apps.googleusercontent.com
+
+
+HOW TO CREATE THE FILE:
+-----------------------
+1. Open VS Code or your text editor
+2. Create a new file
+3. Copy the 3 lines above (exactly as shown)
+4. Save the file as: client\.env.local
+   Full path: c:\Users\HP\PRO\student-rank\client\.env.local
+
+IMPORTANT:
+- The filename MUST be ".env.local" (starts with a dot)
+- Save it in the CLIENT directory, not the root
+- After saving, RESTART the frontend server for changes to take effect
+
+THEN DELETE THIS INSTRUCTION FILE!
+========================================
