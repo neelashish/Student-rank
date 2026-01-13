@@ -17,6 +17,7 @@ export default function OAuthButton({ provider, onClick, loading }: OAuthButtonP
             label: 'Continue with GitHub',
             bgColor: '#333',
             hoverColor: '#24292e',
+            textColor: '#fff',
         },
         google: {
             icon: (
