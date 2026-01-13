@@ -213,6 +213,7 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID="your-google-oauth-client-id"
 
 - **[OAuth Setup Guide](docs/OAUTH_SETUP.md)** - Complete guide for GitHub and Google OAuth configuration
 - **[Phase 2 Setup](docs/PHASE2_SETUP.md)** - Detailed Phase 2 implementation guide
+- **[Vercel Deployment Guide](docs/VERCEL_DEPLOYMENT.md)** - Step-by-step guide to deploy to Vercel
 - **[API Reference](docs/API.md)** - Complete API documentation (if available)
 - **[Database Schema](docs/SCHEMA.md)** - Database structure and relationships (if available)
 

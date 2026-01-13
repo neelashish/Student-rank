@@ -33,6 +33,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env
 .env.local
+# Sensitive credential files
 GOOGLE_CREDENTIALS.txt
 CREATE_CLIENT_ENV.txt 
 # vercels
