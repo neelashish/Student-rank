@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '../../../../services/api';
 
-export default function GoogleCallbackPage() {
+function GoogleCallbackContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [error, setError] = useState('');
@@ -92,6 +92,21 @@ export default function GoogleCallbackPage() {
                 <p style={styles.loadingText}>Authenticating with Google...</p>
             </div>
         </div>
+    );
+}
+
+export default function GoogleCallbackPage() {
+    return (
+        <Suspense fallback={
+            <div style={styles.container}>
+                <div className="glass-card" style={styles.card}>
+                    <div className="spinner"></div>
+                    <p style={styles.loadingText}>Loading...</p>
+                </div>
+            </div>
+        }>
+            <GoogleCallbackContent />
+        </Suspense>
     );
 }
 

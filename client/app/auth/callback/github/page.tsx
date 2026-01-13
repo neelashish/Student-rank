@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '../../../../services/api';
 
-export default function GitHubCallbackPage() {
+function GitHubCallbackContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [error, setError] = useState('');
@@ -91,6 +91,21 @@ export default function GitHubCallbackPage() {
                 <p style={styles.loadingText}>Authenticating with GitHub...</p>
             </div>
         </div>
+    );
+}
+
+export default function GitHubCallbackPage() {
+    return (
+        <Suspense fallback={
+            <div style={styles.container}>
+                <div className="glass-card" style={styles.card}>
+                    <div className="spinner"></div>
+                    <p style={styles.loadingText}>Loading...</p>
+                </div>
+            </div>
+        }>
+            <GitHubCallbackContent />
+        </Suspense>
     );
 }
 
