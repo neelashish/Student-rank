@@ -1,0 +1,23 @@
+{
+    "name": "student-rank-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Student Ranking Platform - Monorepo",
+    "scripts": {
+        "install:server": "cd server && npm install",
+        "install:client": "cd client && npm install",
+        "build:server": "cd server && npm install && npx prisma generate && npm run build",
+        "build:client": "cd client && npm install && npm run build",
+        "start:server": "cd server && npm start",
+        "start:client": "cd client && npm start",
+        "dev:server": "cd server && npm run dev",
+        "dev:client": "cd client && npm run dev"
+    },
+    "keywords": [
+        "student",
+        "ranking",
+        "leaderboard"
+    ],
+    "author": "",
+    "license": "MIT"
+}
