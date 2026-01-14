@@ -6,6 +6,7 @@ import leaderboardRoutes from './routes/leaderboard.routes';
 import collegeRoutes from './routes/college.routes';
 import analyticsRoutes from './routes/analytics.routes';
 import oauthRoutes from './routes/oauth.routes';
+import adminRoutes from './routes/admin.routes';
 import { errorMiddleware } from './middlewares/error.middleware';
 import { env } from './config/env';
 
@@ -33,6 +34,7 @@ app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/colleges', collegeRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/oauth', oauthRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use((req, res) => {
