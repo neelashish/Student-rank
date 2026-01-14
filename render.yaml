@@ -1,0 +1,39 @@
+services:
+  # Backend API Service
+  - type: web
+    name: student-rank-api
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd server && npm ci && npx prisma generate && npm run build
+    startCommand: cd server && npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: student-rank-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+
+databases:
+  - name: student-rank-db
+    databaseName: studentrank
+    plan: free
+    region: oregon
