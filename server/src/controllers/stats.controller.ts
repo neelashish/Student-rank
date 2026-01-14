@@ -21,7 +21,8 @@ export const getAllColleges = async (req: Request, res: Response) => {
 
         res.json(colleges);
     } catch (error) {
-        throw error;
+        console.error('Error fetching colleges:', error);
+        res.status(500).json({ error: 'Failed to fetch colleges' });
     }
 };
 
