@@ -7,11 +7,17 @@ import collegeRoutes from './routes/college.routes';
 import analyticsRoutes from './routes/analytics.routes';
 import oauthRoutes from './routes/oauth.routes';
 import { errorMiddleware } from './middlewares/error.middleware';
+import { env } from './config/env';
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// CORS Configuration
+app.use(cors({
+    origin: env.CLIENT_URL || 'http://localhost:3000',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
